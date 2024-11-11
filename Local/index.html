@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Zoom Meeting Assistant</title>
+    <meta charset="utf-8" />
+    <!-- <link type="text/css" rel="stylesheet" href="node_modules/@zoom/meetingsdk/dist/css/bootstrap.css" /> -->
+    <!-- <link type="text/css" rel="stylesheet" href="index.css" /> -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="screen-left-side">
+            <h2>参加する会議情報を教えてください</h2>
+            <form class="right-screen-form" id="meeting-form">
+                <div class="form-group">
+                    <input type="text" name="display_name" id="display_name" maxLength="100"
+                        placeholder="Name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="meeting_number" id="meeting_number" value="" maxLength="200"
+                        style="width:150px" placeholder="Meeting Number" class="form-control" required> </div>
+                <div class="form-group">
+                    <input type="text" name="meeting_pwd" id="meeting_pwd" value="" style="width:150px"
+                        maxLength="32" placeholder="Meeting Password" class="form-control"> </div>
+                <div class="remind-interval-minute">
+                    <select id="remind-interval-minute-select" class="remind-interval-minute-select">
+                        <option value="10">10分</option>
+                        <option value="5">5分</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="join_meeting">会議に参加</button>
+                <button type="submit" class="btn btn-primary" id="clear_all">クリア</button>
+
+
+                <div class="form-group">
+                    <!-- ドメインアドレスじゃないと会議に入れないので暫定 -->
+                    <!-- フロントにべた書きはほんとは良くないので -->
+                    <input type="text" name="meeting_email" id="meeting_email" value="xxx@xxx.xx" style="width:150px"
+                        maxLength="32" placeholder="Email option" class="form-control" disabled hidden>
+                </div>
+                <div class="form-group">
+                    <select id="meeting_role" class="sdk-select" disabled hidden>
+                        <option value=0>参加者</option>
+                        <!-- <option value=1>ホスト</option> -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="meeting_china" class="sdk-select" disabled hidden>
+                        <option value=0>Global</option>
+                        <!-- <option value=1>中国</option> -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="meeting_lang" class="sdk-select" disabled hidden>
+                        <!-- 日本語しか使わないので日本語のみ -->
+                        <option value="jp-JP">Japanese 日本語</option>
+                        <!-- <option value="en-US">English</option>
+                        <option value="de-DE">German Deutsch</option>
+                        <option value="es-ES">Spanish Español</option>
+                        <option value="fr-FR">French Français</option>
+                        <option value="jp-JP">Japanese 日本語</option>
+                        <option value="pt-PT">Portuguese Portuguese</option>
+                        <option value="ru-RU">Russian Русский</option>
+                        <option value="zh-CN">Chinese 简体中文</option>
+                        <option value="zh-TW">Chinese 繁体中文</option>
+                        <option value="ko-KO">Korean 한국어</option>
+                        <option value="vi-VN">Vietnamese Tiếng Việt</option>
+                        <option value="it-IT">Italian italiano</option>
+                        <option value="tr-TR">Turkey-Türkçe</option>
+                        <option value="pl-PL">Poland-Polski</option>
+                        <option value="id-ID">Indonesian Bahasa Indonesia</option>
+                        <option value="nl-NL">Dutch Nederlands</option>
+                        <option value="sv-SE">Swedish Svenska</option> -->
+                    </select>
+                </div>
+
+
+                <!-- <input type="hidden" value="" id="copy_link_value"/> -->
+                <!-- <button type="button" link="" onclick="window.copyJoinLink('#copy_join_link')" class="btn btn-primary" id="copy_join_link">Copy Direct join link</button> -->
+
+            </form>
+        </div>
+
+        <div class="screen-right-side">
+            <h2>会議後は議事録も作成できます</h2>
+            <form class="right-screen-form" id="aoai-form">
+                <div class="right-side-group">
+                    <input type="file" name="transscript-file" id="transscript-file" value=""></div>
+                <div class="right-side-group">
+                    <input type="file" name="minutes-location" id="minutes-location" value=""></div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- <div id="show-test-tool">
+        <button type="submit" class="btn btn-primary" id="show-test-tool-btn" title="show or hide top test tool">Show</button>
+    </div>
+    <script>
+        document.getElementById('show-test-tool-btn').addEventListener("click", function(e){
+            var textContent = e.target.textContent;
+            if (textContent === 'Show') {
+                document.getElementById('nav-tool').style.display = 'block';
+                document.getElementById('show-test-tool-btn').textContent = 'Hide';
+            }
+            else {
+                document.getElementById('nav-tool').style.display = 'none';
+                document.getElementById('show-test-tool-btn').textContent = 'Show';
+            }
+        })
+    </script> -->
+
+    <script src="node_modules/react/umd/react.production.min.js"></script>
+    <script src="node_modules/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="node_modules/redux/dist/redux.min.js"></script>
+    <script src="node_modules/redux-thunk/dist/redux-thunk.min.js"></script>
+    <script src="node_modules/lodash/lodash.min.js"></script>
+
+    <script src="./js/tool.js"></script>
+    <script src="./static/index.min.js"></script>
+
+    <script>
+        window.onload = function() {
+            // 読み込まれる「https://source.zoom.us/3.9.2/ui/zoom-meetingsdk.css」が邪魔なので解除
+            var stylesheets = document.querySelectorAll('link[rel="stylesheet"], style');
+            for (var i = 0; i < stylesheets.length; i++) {
+                stylesheets[i].disabled = true;
+            }
+            
+            // cssを読み込み
+            var css = document.createElement("link");
+            css.setAttribute("rel", "stylesheet");
+            css.setAttribute("type", "text/css");
+            css.setAttribute("href", "index.css");
+            document.getElementsByTagName("head")[0].appendChild(css);
+        };
+    </script>
+
+</body>
+
+</html>
