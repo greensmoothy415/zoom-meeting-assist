@@ -50,9 +50,6 @@ To get started, clone the repo:
    If you are using Nodejs 16, please use `npm install --force` to proceed with the installation.
 
    ### Component View
-
-   ![Zoom Meeting SDK Component View](https://zoom.github.io/meetingsdk-web-sample/images/6.0/ComponentView/meetingsdk-web-component-view.gif)
-
    > The Component View provides the option to display the Meeting SDK in components on your page. This allows for a more flexible design.
 
 > Learn more about [Gallery View requirements](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/) and [see more product screenshots](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/#how-views-look-with-and-without-sharedarraybuffer).
