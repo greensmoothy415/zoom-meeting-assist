@@ -5,7 +5,8 @@ module.exports = {
   devtool: 'eval',
   entry: {
     index: ['./js/index.js'],
-    meeting: ['./js/meeting.js']
+    meeting: ['./js/meeting.js'],
+    meeting_assisttant: ['./js/meeting_assisttant.js']
   },
   output: {
     path: path.resolve(__dirname, '/static'),
@@ -26,6 +27,10 @@ module.exports = {
       },
       {
         test: /\.(jpg|png|svg)$/,
+        type: 'asset'
+      },
+      {
+        test: /\.(mp3)$/,
         type: 'asset'
       }
     ]

@@ -15,6 +15,7 @@
     "ignorePatterns": [
       "js/index.js",
       "js/meeting.js",
+      "js/meeting_assisttant.js",
       "js/tool.js"
     ]
 }

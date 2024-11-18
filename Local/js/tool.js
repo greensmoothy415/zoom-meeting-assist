@@ -40,6 +40,8 @@ var testTool = {
         document.getElementById("display_name").value
       ),
       pwd: document.getElementById("meeting_pwd").value,
+      endtime: document.getElementById("meeting_end_time").value,
+      remindIntervalMinutes: document.getElementById("remind-interval-minute-select").value,
       role: parseInt(document.getElementById("meeting_role").value, 10),
       email: testTool.b64EncodeUnicode(
         document.getElementById("meeting_email").value

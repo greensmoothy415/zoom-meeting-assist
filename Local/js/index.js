@@ -10,17 +10,17 @@ console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareWebSDK();
 
-const CLIENT_ID = "CLIENT_ID";
+const CLIENT_ID = "0aQqsSLTQ8WI5JtHrUwT7A";
 /**
  * NEVER PUT YOUR ACTUAL SDK SECRET OR CLIENT SECRET IN CLIENT SIDE CODE, THIS IS JUST FOR QUICK PROTOTYPING
  * The below generateSDKSignature should be done server side as not to expose your sdk secret in public
  * You can find an eaxmple in here: https://developers.zoom.us/docs/meeting-sdk/auth/#signature
  */
-const CLIENT_SECRET = "CLIENT_SECRET";
+const CLIENT_SECRET = "Ay1GxjPA6TbyJYqy38NZTqlC5tzYH8a1";
 
 testTool = window.testTool;
 document.getElementById("display_name").value =
-  "ZoomAssistant"
+  "ずうみぃ"
   //testTool.getCookie("display_name");
   // "Local" +
   // ZoomMtg.getWebSDKVersion()[0] +
@@ -31,7 +31,13 @@ document.getElementById("meeting_number").value =
   testTool.getCookie("meeting_number");
 document.getElementById("meeting_pwd").value =
   testTool.getCookie("meeting_pwd");
-  
+
+let date = new Date()
+date.setMinutes(date.getMinutes() + 30)
+console.log(('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2))
+document.getElementById("meeting_end_time").value
+  = ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2)
+
 if (testTool.getCookie("remind-interval-minute-select"))
     document.getElementById("remind-interval-minute-select").value =
       testTool.getCookie("remind-interval-minute-select");
@@ -85,6 +91,7 @@ document.getElementById("clear_all").addEventListener("click", (e) => {
   document.getElementById("display_name").value = "";
   document.getElementById("meeting_number").value = "";
   document.getElementById("meeting_pwd").value = "";
+  document.getElementById("meeting_end_time").value = "";
   document.getElementById("remind-interval-minute-select").value = 10;
   document.getElementById("meeting_lang").value = "jp-JP";
   document.getElementById("meeting_role").value = 0;
@@ -137,6 +144,7 @@ window.copyJoinLink = function (element) {
     alert("Meeting number or username is empty");
     return false;
   }
+  // TODO signatureの生成はBackEndがいいかも
   const signature = ZoomMtg.generateSDKSignature({
     meetingNumber: meetingConfig.mn,
     sdkKey: CLIENT_ID,

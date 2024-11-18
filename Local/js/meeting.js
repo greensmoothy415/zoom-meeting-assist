@@ -1,5 +1,9 @@
 import { ZoomMtg } from "@zoom/meetingsdk";
+import  * as  MeetingAssist  from './meeting_assisttant.js';
+
 const testTool = window.testTool;
+//const meeting_end_time = document.getElementById("meeting_end_time").value
+
 // get meeting args from url
 const tmpArgs = testTool.parseQuery();
 const meetingConfig = {
@@ -23,6 +27,8 @@ const meetingConfig = {
     );
   })(),
   passWord: tmpArgs.pwd,
+  endtime: tmpArgs.endtime,
+  remindIntervalMinutes: tmpArgs.remindIntervalMinutes,
   leaveUrl: "/index.html",
   role: parseInt(tmpArgs.role, 10),
   userEmail: (function () {
@@ -65,9 +71,6 @@ function beginJoin(signature) {
         userEmail: meetingConfig.userEmail,
         passWord: meetingConfig.passWord,
         success: function (res) {
-          console.log("join meeting success");
-          console.log("get attendeelist");
-          ZoomMtg.getAttendeeslist({});
           ZoomMtg.getCurrentUser({
             success: function (res) {
               console.log("success getCurrentUser", res.result.currentUser);
@@ -98,6 +101,24 @@ function beginJoin(signature) {
 
   ZoomMtg.inMeetingServiceListener("onMeetingStatus", function (data) {
     console.log("inMeetingServiceListener onMeetingStatus", data);
+    if( data["meetingStatus"]==2 ) {
+        console.log("meeting join");
+        ZoomMtg.getAttendeeslist({
+            success: function (res) {
+                console.log(res, "get getAttendeeslist");
+            }
+        }); 
+        ZoomMtg.getCurrentMeetingInfo({
+          success: function (res) {
+              console.log(res, "get getAttendeeslist");
+          }
+        });
+
+        MeetingAssist.initAssistant(meetingConfig);
+        MeetingAssist.timeKeep();
+    } else if ( data["meetingStatus"]==3 ) {
+      MeetingAssist.closeAssistant();
+    }
   });
 }
 
