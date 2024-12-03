@@ -113,9 +113,11 @@ function beginJoin(signature) {
               console.log(res, "get getAttendeeslist");
           }
         });
-
-        MeetingAssist.initAssistant(meetingConfig);
-        MeetingAssist.timeKeep();
+        
+        if( !(MeetingAssist.getIsUseAssistant()) ) {
+          MeetingAssist.initAssistant(meetingConfig);
+          MeetingAssist.timeKeep();
+        }
     } else if ( data["meetingStatus"]==3 ) {
       MeetingAssist.closeAssistant();
     }

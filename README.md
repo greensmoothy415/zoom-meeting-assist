@@ -4,6 +4,8 @@ Use of this sample app is subject to our [Terms of Use](https://explore.zoom.us/
 
 The [Zoom Meeting SDK for web](https://developers.zoom.us/docs/meeting-sdk/web/) embeds the Zoom Meeting and Zoom Webinar experiences on a webpage through a highly optimized WebAssembly module.
 
+![Zoom Meeting SDK Client View](https://zoom.github.io/meetingsdk-web-sample/images/6.0/ClientView/meetingsdk-web-client-view.gif)
+
 ## Installation
 
 To get started, clone the repo:
@@ -45,11 +47,16 @@ To get started, clone the repo:
 
    ### Client View
 
+   ![Zoom Meeting SDK Client View](https://zoom.github.io/meetingsdk-web-sample/images/6.0/ClientView/meetingsdk-web-client-view.gif)
+
    > The Client View provides the option to display the Meeting SDK as a full page. This allows for a familiar Zoom Meeting experience because the Client View is the same as the [Zoom Web Client](https://support.zoom.us/hc/en-us/articles/214629443-Zoom-Web-Client), except it lives inside your own web page.
    #### Nodejs 16
    If you are using Nodejs 16, please use `npm install --force` to proceed with the installation.
 
    ### Component View
+
+   ![Zoom Meeting SDK Component View](https://zoom.github.io/meetingsdk-web-sample/images/6.0/ComponentView/meetingsdk-web-component-view.gif)
+
    > The Component View provides the option to display the Meeting SDK in components on your page. This allows for a more flexible design.
 
 > Learn more about [Gallery View requirements](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/) and [see more product screenshots](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/#how-views-look-with-and-without-sharedarraybuffer).
@@ -81,3 +88,10 @@ client.init({
 ## Need help?
 
 If you're looking for help, try [Developer Support](https://devsupport.zoom.us) or our [Developer Forum](https://devforum.zoom.us). Priority support is also available with [Premier Developer Support](https://zoom.us/docs/en-us/developer-support-plans.html) plans.
+
+## audio file is generated below.
+https://ondoku3.com/ja/
+言語：日本語
+音声：ななみ（案内）
+速度：1.5
+高低：３
